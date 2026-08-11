@@ -57,8 +57,11 @@ int main(void) {
                 cin.get();
                 break;
                 
-                case 4:
+            case 4:
+                cout << "\n - Insira uma musica: ";
+                cin >> nomeMusica;
                 removerMusica(&playlist, nomeMusica);
+                cout << "Musica removida";
                 cin.ignore();
                 cin.get();
                 break;
@@ -74,6 +77,7 @@ int main(void) {
         }
 
     } while(true);
+    
 }
 
 void adicionarMusica(No** playlist, string musica) {
@@ -87,12 +91,13 @@ void adicionarMusica(No** playlist, string musica) {
     }
 
     No* aux = *playlist;
-    while (aux != nullptr) {
+    while (aux->prox != nullptr) {
         aux = aux->prox;
-        novaMusica->ant = aux;
     }
 
+    novaMusica->ant = aux;
     aux->prox = novaMusica;
+
 }
 
 void mostrarPlaylist(No* playlist) {
@@ -131,7 +136,7 @@ void mostrarPlaylistReversa(No* playlist) {
 
 void removerMusica(No** playlist, string musica) {
     No* aux = *playlist;
-    while (aux != nullptr) {
+    while (aux != nullptr) { // No meio
         if(aux->nome == musica) {
             (aux->prox)->ant = aux->ant;
             (aux->ant)->prox = aux->prox;
