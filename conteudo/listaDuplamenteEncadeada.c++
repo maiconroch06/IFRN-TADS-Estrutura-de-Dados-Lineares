@@ -13,7 +13,7 @@ typedef struct No { // ou fila de espera
 void adicionarMusica(No** playlist, string musica);
 void mostrarPlaylist(No* playlist);
 void mostrarPlaylistReversa(No* playlist);
-//void removerMusica(No** playlist, string musica);
+void removerMusica(No** playlist, string musica);
 
 int main(void) {
     No* playlist = nullptr;
@@ -56,9 +56,11 @@ int main(void) {
                 cin.ignore();
                 cin.get();
                 break;
-            
-            case 4:
-                //removerMusica(&playlist, nomeMusica);
+                
+                case 4:
+                removerMusica(&playlist, nomeMusica);
+                cin.ignore();
+                cin.get();
                 break;
             
             case 5:
@@ -104,16 +106,19 @@ void mostrarPlaylist(No* playlist) {
         i++;
     }
     cout << "===============================" << endl;
-
+    
 }
 
 void mostrarPlaylistReversa(No* playlist) {
-    int i = 0;
-    while (playlist != nullptr) {
+    int i = 1;
+    while (playlist->prox != nullptr) {
         playlist = playlist->prox;
+        cout << i << ". ";
+        cout << playlist << " " <<playlist->nome << " " << playlist->prox << " " << playlist->ant << endl;
         i++;
     }
     
+    system("cls"); // clear / cls
     cout << "=========== MUSICAS ===========" << endl;
     while (playlist != nullptr) {
         cout << i << ". ";
@@ -123,11 +128,18 @@ void mostrarPlaylistReversa(No* playlist) {
     }
     cout << "===============================" << endl;
     
-    
-
 }
 
-/*void removerMusica(No** playlist, string musica) {
+void removerMusica(No** playlist, string musica) {
+    No* aux = *playlist;
+    while (aux != nullptr) {
+        if(aux->nome == musica) {
+            aux->ant = aux->prox;
+            free(aux);
+            return;
+        }
+        aux = aux->prox;
+    }
+    cout << " Nenhuma musica encontrada..." << endl;
 
-    
-}*/
+}
