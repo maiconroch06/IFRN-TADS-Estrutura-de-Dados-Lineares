@@ -79,7 +79,6 @@ int main(void) {
 void adicionarMusica(No** playlist, string musica) {
     No* novaMusica = new No;
     novaMusica->nome = musica;
-    novaMusica->ant = *playlist;
     novaMusica->prox = nullptr;
     
     if (*playlist == nullptr) {
@@ -88,8 +87,9 @@ void adicionarMusica(No** playlist, string musica) {
     }
 
     No* aux = *playlist;
-    while (aux->prox != nullptr) {
+    while (aux != nullptr) {
         aux = aux->prox;
+        novaMusica->ant = aux;
     }
 
     aux->prox = novaMusica;
@@ -113,17 +113,16 @@ void mostrarPlaylistReversa(No* playlist) {
     int i = 1;
     while (playlist->prox != nullptr) {
         playlist = playlist->prox;
-        cout << i << ". ";
-        cout << playlist << " " <<playlist->nome << " " << playlist->prox << " " << playlist->ant << endl;
         i++;
     }
     
+    No* aux = playlist;
     system("cls"); // clear / cls
     cout << "=========== MUSICAS ===========" << endl;
-    while (playlist != nullptr) {
+    while (aux != nullptr) {
         cout << i << ". ";
-        cout << playlist->nome << endl;
-        playlist = playlist->ant;
+        cout << aux->nome << endl;
+        aux = aux->ant;
         i--;
     }
     cout << "===============================" << endl;
@@ -134,7 +133,8 @@ void removerMusica(No** playlist, string musica) {
     No* aux = *playlist;
     while (aux != nullptr) {
         if(aux->nome == musica) {
-            aux->ant = aux->prox;
+            (aux->prox)->ant = aux->ant;
+            (aux->ant)->prox = aux->prox;
             free(aux);
             return;
         }
