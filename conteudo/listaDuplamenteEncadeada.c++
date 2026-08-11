@@ -13,7 +13,7 @@ typedef struct No { // ou fila de espera
 void adicionarMusica(No** playlist, string musica);
 void mostrarPlaylist(No* playlist);
 void mostrarPlaylistReversa(No* playlist);
-void removerMusica(No** playlist, string musica);
+//void removerMusica(No** playlist, string musica);
 
 int main(void) {
     No* playlist = nullptr;
@@ -21,25 +21,31 @@ int main(void) {
     string nomeMusica;
 
     do {
-        system("clear");
+        system("cls");
         cout << ".========== PLAYLIST ==========." << endl;
-        cout << "| 1 - Adicionar Música         |" << endl;
+        cout << "| 1 - Adicionar Musica         |" << endl;
         cout << "| 2 - Mostrar Playlist         |" << endl;
         cout << "| 3 - Mostrar Playlist Reversa |" << endl;
-        cout << "| 4 - Remover Música           |" << endl;
+        cout << "| 4 - Remover Musica           |" << endl;
         cout << "| 5 - Sair                     |" << endl;
         cout << "*==============================*" << endl;
-        cout << "  -> Escolha: " << endl;
+        cout << "  -> Escolha: ";
         cin >> escolha;
         
         switch (escolha) {
             case 1:
-                cout << "Insira uma musica: " << endl;
+                cout << "\n - Insira uma musica: ";
                 cin >> nomeMusica;
                 adicionarMusica(&playlist, nomeMusica);
                 break;
             
             case 2:
+                if (playlist == nullptr) {
+                    cout << "  - Lista vazia..." << endl;
+                    cin.ignore();
+                    cin.get();
+                    break;
+                }
                 mostrarPlaylist(playlist);
                 cin.ignore();
                 cin.get();
@@ -52,14 +58,14 @@ int main(void) {
                 break;
             
             case 4:
-                removerMusica(&playlist, nomeMusica);
+                //removerMusica(&playlist, nomeMusica);
                 break;
             
             case 5:
                 return 0;
         
         default:
-            cout << "ERRO: Opção inválida..." << endl;
+            cout << "ERRO: Opcao invalida..." << endl;
             cin.ignore();
             cin.get();
             break;
@@ -71,23 +77,57 @@ int main(void) {
 void adicionarMusica(No** playlist, string musica) {
     No* novaMusica = new No;
     novaMusica->nome = musica;
-    novaMusica->prox = nullptr;
     novaMusica->ant = *playlist;
-    (*playlist)->prox = novaMusica;
+    novaMusica->prox = nullptr;
+    
+    if (*playlist == nullptr) {
+        *playlist = novaMusica;
+        return;
+    }
+
+    No* aux = *playlist;
+    while (aux->prox != nullptr) {
+        aux = aux->prox;
+    }
+
+    aux->prox = novaMusica;
+}
+
+void mostrarPlaylist(No* playlist) {
+    int i = 1;
+    system("cls"); // clear / cls
+    cout << "=========== MUSICAS ===========" << endl;
+    while(playlist != nullptr) {
+        cout << i << ". ";
+        cout << playlist->nome << endl;
+        playlist = playlist->prox;
+        i++;
+    }
+    cout << "===============================" << endl;
 
 }
 
-void mostrarPlaylist(No *playlist) {
-
+void mostrarPlaylistReversa(No* playlist) {
+    int i = 0;
+    while (playlist != nullptr) {
+        playlist = playlist->prox;
+        i++;
+    }
+    
+    cout << "=========== MUSICAS ===========" << endl;
+    while (playlist != nullptr) {
+        cout << i << ". ";
+        cout << playlist->nome << endl;
+        playlist = playlist->ant;
+        i--;
+    }
+    cout << "===============================" << endl;
+    
+    
 
 }
 
-void mostrarPlaylistReversa(No *playlist) {
-
-
-}
-
-void removerMusica(No **playlist, string musica) {
+/*void removerMusica(No** playlist, string musica) {
 
     
-}
+}*/
