@@ -10,18 +10,17 @@ typedef struct No { // ou fila de espera
     string nome;
 } No;
 
-void adicionarMusica(No** playlist, string musica);
+void adicionarMusica(No** playlist);
 void mostrarPlaylist(No* playlist);
 void mostrarPlaylistReversa(No* playlist);
-void removerMusica(No** playlist, string musica);
+void removerMusica(No** playlist);
 
 int main(void) {
     No* playlist = nullptr;
     int escolha;
-    string nomeMusica;
 
     do {
-        system("clear");
+        system("cls");
         cout << ".========== PLAYLIST ==========." << endl;
         cout << "| 1 - Adicionar Musica         |" << endl;
         cout << "| 2 - Mostrar Playlist         |" << endl;
@@ -34,18 +33,10 @@ int main(void) {
         
         switch (escolha) {
             case 1:
-                cout << "\n - Insira uma musica: ";
-                cin >> nomeMusica;
-                adicionarMusica(&playlist, nomeMusica);
+                adicionarMusica(&playlist);
                 break;
             
             case 2:
-                if (playlist == nullptr) {
-                    cout << "  - Lista vazia..." << endl;
-                    cin.ignore();
-                    cin.get();
-                    break;
-                }
                 mostrarPlaylist(playlist);
                 cin.ignore();
                 cin.get();
@@ -58,10 +49,7 @@ int main(void) {
                 break;
                 
             case 4:
-                cout << "\n - Insira uma musica: ";
-                cin >> nomeMusica;
-                removerMusica(&playlist, nomeMusica);
-                cout << "Musica removida";
+                removerMusica(&playlist);
                 cin.ignore();
                 cin.get();
                 break;
@@ -80,7 +68,11 @@ int main(void) {
     
 }
 
-void adicionarMusica(No** playlist, string musica) {
+void adicionarMusica(No** playlist) {
+    string musica;
+    cout << "\n - Insira uma musica: ";
+    cin >> musica;
+
     No* novaMusica = new No;
     novaMusica->nome = musica;
     novaMusica->prox = nullptr;
@@ -101,8 +93,15 @@ void adicionarMusica(No** playlist, string musica) {
 }
 
 void mostrarPlaylist(No* playlist) {
+    if (playlist == nullptr) {
+        cout << "  - Lista vazia..." << endl;
+        cin.ignore();
+        cin.get();
+        return;
+    }
+
     int i = 1;
-    system("clear"); // clear / cls
+    system("cls"); // clear / cls
     cout << "=========== MUSICAS ===========" << endl;
     while(playlist != nullptr) {
         cout << i << ". ";
@@ -115,6 +114,13 @@ void mostrarPlaylist(No* playlist) {
 }
 
 void mostrarPlaylistReversa(No* playlist) {
+    if (playlist == nullptr) {
+        cout << "  - Lista vazia..." << endl;
+        cin.ignore();
+        cin.get();
+        return;
+    }
+    
     int i = 1;
     while (playlist->prox != nullptr) {
         playlist = playlist->prox;
@@ -122,11 +128,12 @@ void mostrarPlaylistReversa(No* playlist) {
     }
     
     No* aux = playlist;
-    system("clear"); // clear / cls
+    system("cls"); // clear / cls
     cout << "=========== MUSICAS ===========" << endl;
     while (aux != nullptr) {
         cout << i << ". ";
         cout << aux->nome << endl;
+        
         aux = aux->ant;
         i--;
     }
@@ -134,19 +141,44 @@ void mostrarPlaylistReversa(No* playlist) {
     
 }
 
-void removerMusica(No** playlist, string musica) {
+void removerMusica(No** playlist) {
+    string musica;
+    cout << "\n - Insira uma musica: ";
+    cin >> musica;
+
     No* aux = *playlist;
-    while (aux != nullptr) { // No meio
-        if(aux->nome == musica) {
-            (aux->ant)->prox = aux->prox;
-            if (aux->prox != nullptr && aux->ant != nullptr) { // entra quando não é o ultimo enem o primeiro
-                (aux->prox)->ant = aux->ant;
-            }
-            free(aux);
-            return;
-        }
+    while (aux != nullptr && aux->nome != musica) {
         aux = aux->prox;
     }
-    cout << " Nenhuma musica encontrada..." << endl;
+
+    if (aux == nullptr) {
+        cout << " Nenhuma musica encontrada..." << endl;
+        return;
+    }
+    
+    if (aux->ant == nullptr) {
+        *playlist = aux->prox;
+
+        if (*playlist != nullptr) {
+            (*playlist)->ant = nullptr;
+        }
+    
+    } else if (aux->prox == nullptr) {
+        aux->ant->prox = nullptr;
+    
+    } else {
+        (aux->ant)->prox = aux->prox;
+        (aux->prox)->ant = aux->ant;
+        
+    }
+
+    /*(aux->ant)->prox = aux->prox;
+    
+    if (aux->prox != nullptr && aux->ant != nullptr) {
+        (aux->prox)->ant = aux->ant;
+    }*/
+
+    delete aux;
+    cout << "  Musica removida";
 
 }
