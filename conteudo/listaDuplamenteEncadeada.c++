@@ -21,7 +21,7 @@ int main(void) {
     string nomeMusica;
 
     do {
-        system("cls");
+        system("clear");
         cout << ".========== PLAYLIST ==========." << endl;
         cout << "| 1 - Adicionar Musica         |" << endl;
         cout << "| 2 - Mostrar Playlist         |" << endl;
@@ -102,7 +102,7 @@ void adicionarMusica(No** playlist, string musica) {
 
 void mostrarPlaylist(No* playlist) {
     int i = 1;
-    system("cls"); // clear / cls
+    system("clear"); // clear / cls
     cout << "=========== MUSICAS ===========" << endl;
     while(playlist != nullptr) {
         cout << i << ". ";
@@ -122,7 +122,7 @@ void mostrarPlaylistReversa(No* playlist) {
     }
     
     No* aux = playlist;
-    system("cls"); // clear / cls
+    system("clear"); // clear / cls
     cout << "=========== MUSICAS ===========" << endl;
     while (aux != nullptr) {
         cout << i << ". ";
@@ -138,8 +138,10 @@ void removerMusica(No** playlist, string musica) {
     No* aux = *playlist;
     while (aux != nullptr) { // No meio
         if(aux->nome == musica) {
-            (aux->prox)->ant = aux->ant;
             (aux->ant)->prox = aux->prox;
+            if (aux->prox != nullptr && aux->ant != nullptr) { // entra quando não é o ultimo enem o primeiro
+                (aux->prox)->ant = aux->ant;
+            }
             free(aux);
             return;
         }
