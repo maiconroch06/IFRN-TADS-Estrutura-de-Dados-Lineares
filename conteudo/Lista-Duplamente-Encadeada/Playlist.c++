@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <string>
+#include "terminal.h"
 
 using namespace std;
 
@@ -20,7 +21,7 @@ int main(void) {
     int escolha;
 
     do {
-        system("cls");
+        limparTerminal();
         cout << ".========== PLAYLIST ==========." << endl;
         cout << "| 1 - Adicionar Musica         |" << endl;
         cout << "| 2 - Mostrar Playlist         |" << endl;
@@ -75,7 +76,6 @@ void adicionarMusica(No** playlist) {
 
     No* novaMusica = new No;
     novaMusica->nome = musica;
-    novaMusica->prox = nullptr;
     
     if (*playlist == nullptr) {
         *playlist = novaMusica;
@@ -101,7 +101,7 @@ void mostrarPlaylist(No* playlist) {
     }
 
     int i = 1;
-    system("cls"); // clear / cls
+    limparTerminal();
     cout << "=========== MUSICAS ===========" << endl;
     while(playlist != nullptr) {
         cout << i << ". ";
@@ -128,7 +128,7 @@ void mostrarPlaylistReversa(No* playlist) {
     }
     
     No* aux = playlist;
-    system("cls"); // clear / cls
+    limparTerminal();
     cout << "=========== MUSICAS ===========" << endl;
     while (aux != nullptr) {
         cout << i << ". ";
@@ -157,6 +157,7 @@ void removerMusica(No** playlist) {
     }
     
     if (aux->ant == nullptr) {
+        (aux->prox)->ant = nullptr;
         *playlist = aux->prox;
 
         if (*playlist != nullptr) {
@@ -171,12 +172,6 @@ void removerMusica(No** playlist) {
         (aux->prox)->ant = aux->ant;
         
     }
-
-    /*(aux->ant)->prox = aux->prox;
-    
-    if (aux->prox != nullptr && aux->ant != nullptr) {
-        (aux->prox)->ant = aux->ant;
-    }*/
 
     delete aux;
     cout << "  Musica removida";
