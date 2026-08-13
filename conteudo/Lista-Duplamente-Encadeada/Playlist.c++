@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <string>
-#include "terminal.h"
+#include "../terminal.h"
 
 using namespace std;
 
