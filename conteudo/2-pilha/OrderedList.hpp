@@ -5,6 +5,8 @@
 
 using namespace std;
 
+#define DEFAULT_LENGTH 5
+
 class OrderedList {
     private:
         int size;         // tamanho do vetor
@@ -13,23 +15,23 @@ class OrderedList {
 
         void reallocate();
 
-        OrderedList(int size = DEFAULT_LENGTH); // construtor
-        
-        int getSizer();           // retorna o tamanho do vetor
-        int getLength();          // retorna o comprimento da lista
-        
-        int setSize(int newSize); // modifica o tamanho do vetor
-        
-        int search(int value);    // busca im elemento na lista ordenada
-        int insert(int value);    // insere um elemento na lista ordenada
-        int remove(int value);    // remove um elemento da lista ordenada
-
-        int update(int index);    // atualiza elemento de um determinado índice
-
-        void print();
-
-        ~OrderedList(); // destrutor da classe
     public:
+        
+        OrderedList(int size = DEFAULT_LENGTH); // construtor
+        ~OrderedList(); // destrutor da classe
+        
+        // CRUD - "Create" - Read - Update - Delet
+        void insert(int value);    // insere um elemento na lista ordenada
+        int search(int value);    // busca im elemento na lista ordenada
+        int update(int index);    // atualiza elemento de um determinado índice
+        int remove(int value);    // remove um elemento da lista ordenada
+        
+        void print();             // exibição da pilha
+
+        int getSize();            // retorna o tamanho do vetor
+        void setSize(int newSize); // modifica o tamanho do vetor
+        int getLength();          // retorna o comprimento da lista
+
     };
 
 

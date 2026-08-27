@@ -1,6 +1,6 @@
 #include "OrderedList.hpp"
 
-OrderedList:OrderedList(int size = DEFAULT_LENGTH) {
+OrderedList::OrderedList(int size) {
     if (size <= 0) {
         cerr << "# ERRO: invalid length!";
         size = DEFAULT_LENGTH;
@@ -11,70 +11,88 @@ OrderedList:OrderedList(int size = DEFAULT_LENGTH) {
     this->length = 0;
 }
 
-int OrderedList:getSizer() {
-    return this->size;
+OrderedList::~OrderedList() {}
+
+void OrderedList::reallocate() {
+    this->array = new int [5];
 }
 
-int OrderedList:getLength() {
-    return this->length;
+void OrderedList::insert(int value) {               // Ordem descrecente
+    
+    if (this->length == this->size) {
+        reallocate();
+    }
+
+    int i = this->length - 1;
+    while (value < this->array[i] && i >= 0) {
+        this->array[i + 1] = this->array[i];
+        i--;
+    }
+    
+    this->array[i + 1] = value;
+    this->length++;
 }
 
-int OrderedList:setSize(int newSize) {
-    this->size = size;
-}
-
-int OrderedList:search(int value) {
+int OrderedList::search(int value) {
     for (int i = 0; i < this->length; i++) {
         if (this->array[i] == value) {
             return i;
-        } else if (this->array[i] > value) {  // Facilitando a busca numa lista ordernada
+        } else if (this->array[i] > value) {       // Facilitando a busca numa lista ordernada
             return -1;
         }
     }
     
     return -1;
+}
 
-    // int index;
-    // while (this->array[index] < value) {
-    //     index++;
-    // }
+int OrderedList::update(int index) {
 
-    // if (this->array[--index] == value) {
-    //     return 1;
-    // } else if (this->array[i] > value) {
-    //     return -1;
-    // }
+    return 1;
+}
+
+int OrderedList::remove(int value) {
     
-    
-    // for (int i = 0; i < this->length; i++) {
-    //     if (this->array[i] == value) {
-    //         return i;
-    //     }
-    // }
-    
-    // return -1;
-}
-
-int OrderedList:insert(int value) {
-
-}
-
-int OrderedList:remove(int value) {
-
+    return 1;
 }
 
 
-int OrderedList:update(int index) {
-
-}
-
-void print() {
+void OrderedList::print() {
     cout << "\n List: ";
     for (int i = 0; i < this->length; i++) {
         cout << this->array[i] << " ";
     }
 }
 
-OrderedList:~OrderedList() {
-
+int OrderedList::getSize() {
+    return this->size;
 }
+
+void OrderedList::setSize(int newSize) {
+    size = newSize;
+}
+
+int OrderedList::getLength() {
+    return this->length;
+}
+
+// int OrderedList::search(int value) {
+//     int index;
+//     while (this->array[index] < value) {
+    //         index++;
+    //     }
+    
+    //     if (this->array[--index] == value) {
+        //         return 1;
+        //     } else if (this->array[i] > value) {
+//         return -1;
+//     }
+    
+    
+//     for (int i = 0; i < this->length; i++) {
+//         if (this->array[i] == value) {
+//             return i;
+//         }
+//     }
+    
+//     return -1;
+// }
