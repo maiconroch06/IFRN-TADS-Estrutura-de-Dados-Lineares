@@ -13,12 +13,21 @@ OrderedList::OrderedList(int size) {
 
 OrderedList::~OrderedList() {}
 
-void OrderedList::reallocate() {
-    this->array = new int [5];
+void OrderedList::reallocate(int size) {
+    int novo_tamanho = this->size * 2;
+    int * auxArray = new int [this->size * 2];
+    
+    for (int i = 0; i < this->size; i++) {
+            auxArray[i] = this->array[i];
+        }
+
+    delete this->array;
+    this->array = auxArray;
+    this->size = novo_tamanho;
+
 }
 
 void OrderedList::insert(int value) {               // Ordem descrecente
-    
     if (this->length == this->size) {
         reallocate();
     }
@@ -47,11 +56,23 @@ int OrderedList::search(int value) {
 
 int OrderedList::update(int index) {
 
+
     return 1;
 }
 
 int OrderedList::remove(int value) {
+    if (isEmpty()) {                              // Ta vazio? Volta ou Continua
+        return -1;
+    }
+
+    int i = this->length - 1;
+    while (value == this->array[i] && i >= 0) {
+        this->array[i - 1] = this->array[i];
+        i--;
+    }
     
+    this->array[i + 1] = value;
+    this->length--;
     return 1;
 }
 
@@ -61,6 +82,10 @@ void OrderedList::print() {
     for (int i = 0; i < this->length; i++) {
         cout << this->array[i] << " ";
     }
+}
+
+bool OrderedList::isEmpty() {
+    return this->length == 0;
 }
 
 int OrderedList::getSize() {

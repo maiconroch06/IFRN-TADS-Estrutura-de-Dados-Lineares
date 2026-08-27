@@ -13,7 +13,7 @@ class OrderedList {
         int length;       // comprimento da lista (tamanho de n_elementos)
         int * array;      // vetor dinamico
 
-        void reallocate();
+        void reallocate(int size = DEFAULT_LENGTH);
 
     public:
         
@@ -27,6 +27,7 @@ class OrderedList {
         int remove(int value);    // remove um elemento da lista ordenada
         
         void print();             // exibição da pilha
+        bool isEmpty();
 
         int getSize();            // retorna o tamanho do vetor
         void setSize(int newSize); // modifica o tamanho do vetor
