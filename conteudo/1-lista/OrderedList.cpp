@@ -11,6 +11,13 @@ OrderedList::OrderedList(int size) {
     this->length = 0;
 }
 
+OrderedList::OrderedList(const OrderedList & list) {
+    this->size = getSize();
+    this->length = getLength();
+
+    
+}
+
 OrderedList::~OrderedList() {}
 
 void OrderedList::reallocate(int size) {

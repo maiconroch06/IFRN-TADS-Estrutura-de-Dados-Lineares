@@ -18,6 +18,7 @@ class OrderedList {
     public:
         
         OrderedList(int size = DEFAULT_LENGTH); // construtor
+        OrderedList(const OrderedList & list); // destrutor da classe
         ~OrderedList(); // destrutor da classe
         
         // CRUD - "Create" - Read - Update - Delet
