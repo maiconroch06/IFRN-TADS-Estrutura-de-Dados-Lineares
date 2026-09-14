@@ -1,32 +1,40 @@
+// Arquivo de cabeçalho da classe StackLinkedList
+// Implementa uma pilha de inteiros em uma lista 
+// encadeada simples
 #ifndef _STACK_LINKED_LIST_
 #define _STACK_LINKED_LIST_
 
+#include <iostream>
+
+using namespace std;
+
 struct Node {
-    int value;
-    Node * next;
+    int key;                        // chave do nó
+    Node* next;                     // ponteiro para próximo nó
 };
 
 class StackLinkedList {
-private:
-    Node * head;
-    int length;
-public:
-    StackLinkedList();   // Cria uma pilha vazia
+    private:
+        Node* top;                  // nó cabeça da lista (head)
+        int lenght;                 // número de elementos empilhados
 
-    StackLinkedList(const StackLinkedList & stack);   // Cria uma copia de outra pilha
+    public:
+        StackLinkedList();          // cria uma pilha vazia
+        StackLinkedList(const StackLinkedList & stack); // Cria uma copia de outra pilha
 
-    void push(int key);                               // empilha um elemento no topo da pilha
-    void pop();                                       // desenpilha o elemento do topo
-    void peek() const;                                // retorna o valor do elemento do topo
+        void push(int key);         // empilha um elemento no topo da pilha
+        int pop();                  // desempilha o elemento do topo
+        int peek() const;           // retorna o valor do elemento do topo
 
-    bool isEmpty() const;                             // verifica se pilha vazia
+        bool isEmpty() const;       // verifica se pilha vazia
+        int getLenght() const;      // número de elementos da pilha
 
-    void reverse();                                   // inverte os elementos da lista
-    StackLinkedList reverse() const;                  // cria uma nova pilha com os mesmos elementos, mas retorna uma pilha nova com os valores invertidos
+        void reverse();             // inverte a ordem dos elementos da pilha
+        StackLinkedList reverse() const;    // cria uma nova pilha com os mesmos elementos, mas retorna uma pilha nova com os valores invertidos
 
-    void print();                                     // Imprime os elementos da pilha
+        void print() const;         // imprime os elementos da pilha
 
-   ~StackLinkedList();                                // destrutor
+        ~StackLinkedList();         // destrutor da classe
 };
 
 #endif
