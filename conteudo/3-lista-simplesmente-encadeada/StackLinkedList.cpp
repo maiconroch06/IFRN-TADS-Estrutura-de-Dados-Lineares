@@ -97,5 +97,16 @@ void StackLinkedList::print() const {
 } 
 
 StackLinkedList::~StackLinkedList() {
+    if (this->isEmpty()) {
+        cout << " Lista Vazia";
+        return;
+    }
+
+    Node* aux = this->top;
+    while (aux == nullptr) {
+        this->top = aux->next;
+        delete aux;
+        aux = top;
+    }
 
 } 

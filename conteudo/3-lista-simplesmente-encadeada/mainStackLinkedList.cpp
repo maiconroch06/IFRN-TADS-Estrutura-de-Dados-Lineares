@@ -18,11 +18,16 @@ int main(void) {
     cout << "\n ====== LISTA 02 ======" << endl;
     StackLinkedList stack02 = StackLinkedList(stack01);
     stack02.print();            // Imprime elementos da pilha 01
+    stack02.push(50);
+    stack02.print();
     cout << " -> Topo Atual: " << stack02.peek() << endl;
     cout << " -> Topo Removido: " << stack02.pop() << endl;
     cout << " -> Topo Atual: " << stack02.peek() << endl;
     stack02.print();
     cout << " ======================" << endl;
+
+    stack02.~StackLinkedList();
+    stack02.print();
     
     return 0;
 }
