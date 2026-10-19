@@ -2,37 +2,38 @@
 #define _STACK_HPP_
 
 #include <iostream>
-
 using namespace std;
 
 #define DEFAULT_SIZE 5
 #define EMPTY_STACK -1
 
 class Stack {
-private:
-    int size;
-    int length;
-    int top;
-    int* stack;
+    private:
+        int size;       // tamanho do vetor
+        int top;        // indice do topo da pilha
+        int * stack;    // vetor que implementa a pilha
 
-public:
-    Stack(int size = DEFAULT_SIZE);
-    Stack(const Stack & st);
-    ~Stack();
+        void reallocate();
 
-    int getSize() const;
-    int getLength() const;
+    public:
+        Stack(int size = DEFAULT_SIZE);     // construtor
+        Stack(const Stack & st);            // construtor de cópia
 
-    bool isEmpty() const;  // verifica se a ppilha esta vazia // metodo const n modifica o objeto
+        int getSize() const;        // retorna tamanho do vetor
+        int getLength() const;      // retorna número de elementos
 
-    int peek() const; // obtem o valor no topo da pilha se mremovelo da pilha
+        bool isEmpty() const;         // verifica se pilha vazia
 
-    void push(int value);
-    int pop();
-    
-    void print();
-    void reallocate();
+        int peek() const;       // obtem valor no topo da pilha
+                                // sem removê-lo da pilha
 
+        void push(int value);   // insere elemento no topo da pilha
+        int pop();              // retorna o topo da pilha, removendo
+                                // o elemento
+
+        void print() const;     // imprimir elementos (para teste)
+
+        ~Stack();       // destrutor da classe
 };
 
 #endif

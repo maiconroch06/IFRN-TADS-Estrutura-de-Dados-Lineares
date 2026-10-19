@@ -1,7 +1,17 @@
 #include "Stack.hpp"
 
+Stack::Stack() {
+    size = 0;
+    length = 0;
+    top = 0;
+    stack = nullptr;
+}
+
 Stack::Stack(int size) {
-    
+    size = 0;
+    length;
+    top;
+    stack;
 }
 
 Stack::Stack(const Stack & st) {
@@ -44,7 +54,6 @@ void Stack::print() {
     for (int i = this->top; i >= 0; i--) {
         cout << this->stack[i] << " ";
     }
-    
 }
 
 Stack::~Stack() {
