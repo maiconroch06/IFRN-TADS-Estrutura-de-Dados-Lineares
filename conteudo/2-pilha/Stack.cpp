@@ -1,7 +1,7 @@
 #include "Stack.hpp"
 
 Stack::Stack(int size) {
-
+    
 }
 
 Stack::Stack(const Stack & st) {
