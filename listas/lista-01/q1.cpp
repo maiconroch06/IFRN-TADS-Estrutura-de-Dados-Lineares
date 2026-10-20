@@ -1,7 +1,7 @@
 /*
 QUESTÃO 1:
 
-Comparativo entre Estruturas Sequenciais (Estáticas/Dinâmicas) e Encadeadas em C++ 
+Comparativo entre Estruturas Sequenciais (Estáticas/Dinâmicas) e Encadeadas em C++
 Em termos de desempenho e gerenciamento de memória, compare a utilização de uma
 Lista Sequencial Dinâmica (baseada em vetor) e uma Lista Simplesmente Encadeada
 (baseada em nós/ponteiros). 
@@ -43,5 +43,13 @@ início, no meio e no fim.
 
 1.3 Overhead de Memória e Fragmentação:
 
+- Lista Sequencial Dinâmica: É necessário criar uma outra lista sequencial com um tamanho maior do que a lista totalmente preenchida.
+        Para então, pegar os elementos da lista e transferir-los para nova lista, tendo que percorrer toda a lista para transferir
+        os valores, resultando em um custo computacional de 𝑂(𝑛). Além disso, pode haver desperdício de memória quando a capacidade
+        alocada é maior do que a quantidade de elementos armazenados. 
+
+- Lista Simplesmente Encadeada: Não é necessario criar um outro objeto para fazer a alocação. É feito apenas um Nó alocado dinamicamente,
+        onde este Nó irá apontar para um outro Nó, isso trás como custo computacional de 𝑂(1). A fragmentação de memoria pode ocorrer de
+        devido que os Nós estão segmentados na memória.
 
 */
