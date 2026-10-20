@@ -18,6 +18,7 @@ class Stack {
     public:
         Stack(int size = DEFAULT_SIZE);     // construtor
         Stack(const Stack & st);            // construtor de cópia
+        Stack();            // construtor de cópia
 
         int getSize() const;        // retorna tamanho do vetor
         int getLength() const;      // retorna número de elementos
